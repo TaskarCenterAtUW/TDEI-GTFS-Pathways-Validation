@@ -29,10 +29,6 @@ class App {
         });
     }
 
-    private initializeCore(){
-
-    }
-
     public listen() {
         this.app.listen(this.port, () => {
             console.log(`App listening on the port ${this.port}`);
