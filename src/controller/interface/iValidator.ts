@@ -1,4 +1,6 @@
+import { QueueMessage } from "nodets-ms-core/lib/core/queue";
+
 export interface IValidator {
 
-    validate(): void;
+    validate(message:QueueMessage): void;
 }

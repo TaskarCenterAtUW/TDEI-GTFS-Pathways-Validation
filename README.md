@@ -6,6 +6,7 @@ Service to Validate the GTFS Pathways file that is uploaded. At the moment, the 
 - Consumes the message and checks the filename in the message
   - if the filename contains the word _valid_ returns **valid** as the result
   - if the filename contains the word _invalid_ returns **invalid** as the result
+  - if the file name does not contain either, it will return **invalid** as the result
 - Publishes the result to the topic _gtfs-pathways-validation_
 
 ## Getting Started
