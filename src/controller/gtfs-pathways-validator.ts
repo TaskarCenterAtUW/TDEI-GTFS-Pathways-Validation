@@ -21,13 +21,16 @@ export class GTFSPathwaysValidator implements IValidator, ITopicSubscription {
         this.publishingTopic = Core.getTopic(this.publishingTopicName);
         this.logger = Core.getLogger();
         this.listeningTopic.subscribe(this.subscriptionName,this).catch((error)=>{
-            console.log('Caught error with subscribe');
+            console.log('Error while subscribing');
             console.log(error);
         });
     }
 
     onReceive(message: QueueMessage) {
         console.log('Received message');
+        console.log(message);
+        this.validate();
+        
     }
     
     onError(error: Error) {
