@@ -29,7 +29,7 @@ Follow the steps to install the node packages required for both building and run
 2. To start the server, use the command `npm run start`
 3. The http server by default starts with 3000 port or whatever is declared in `process.env.PORT` (look at `index.ts` for more details)
 4. By default `get` call on `localhost:3000` gives a sample response
-5. Other routes include a `ping` with get and post. Make `get` or `post` request to `http://localhost:3000/ping`
+5. Other routes include a `ping` with get and post. Make `get` or `post` request to `http://localhost:3000/health/ping`
 
 
 ### Connectivity to cloud
