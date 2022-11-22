@@ -32,4 +32,16 @@ Follow the steps to install the node packages required for both building and run
 5. Other routes include a `ping` with get and post. Make `get` or `post` request to `http://localhost:3000/ping`
 
 
+### Connectivity to cloud
+- Connecting this to cloud will need the following in the `.env` file
+
+```bash
+
+QUEUECONNECTION=xxxx
+
+```
+The application right now does not connect with the storage but validates via the file name.
+
+
+
 
