@@ -2,25 +2,20 @@ import express from "express";
 import bodyParser from "body-parser";
 import { IController } from "./controller/interface/iController";
 import helmet from "helmet";
-import { EventBusService } from "./service/event-bus/event-bus";
+import { GTFSPathwaysValidator } from "./controller/gtfs-pathways-validator";
 
 class App {
     public app: express.Application;
     public port: number;
-    eventBusService!: EventBusService;
+    private validator: GTFSPathwaysValidator;
 
     constructor(controllers: IController[], port: number) {
         this.app = express();
         this.port = port;
-
+        
         this.initializeMiddlewares();
         this.initializeControllers(controllers);
-        this.subscribeUpload();
-    }
-
-    private subscribeUpload() {
-        this.eventBusService = new EventBusService();
-        this.eventBusService.subscribeUpload();
+        this.validator = new GTFSPathwaysValidator();
     }
 
     private initializeMiddlewares() {
@@ -32,6 +27,10 @@ class App {
         controllers.forEach((controller) => {
             this.app.use('/', controller.router);
         });
+    }
+
+    private initializeCore(){
+
     }
 
     public listen() {

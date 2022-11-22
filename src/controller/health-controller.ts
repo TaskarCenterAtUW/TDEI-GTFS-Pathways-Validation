@@ -11,6 +11,7 @@ class HealthController implements IController {
 
     public intializeRoutes() {
         this.router.get(`${this.path}/ping`, this.getping);
+        this.router.post(`${this.path}/ping`, this.getping);
     }
 
     getping = async (request: Request, response: express.Response) => {
