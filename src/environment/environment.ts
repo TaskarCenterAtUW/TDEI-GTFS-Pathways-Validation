@@ -14,5 +14,5 @@ export const environment = {
         validationTopic: process.env.ValidationTopic,
         validationSubscription: process.env.ValidationSubscription
     },
-    appPort: parseInt(process.env.PORT as string) || 3000
+    appPort: parseInt(process.env.PORT as string) || 8080
 }
