@@ -16,6 +16,7 @@
         "data_source": "local",
         "is_valid": false,
         "validation_message": "Invalid file",
-        "validation_time": 90
+        "validation_time": 90,
+        "pathways_schema_version": "1.0.0"
     }
 }

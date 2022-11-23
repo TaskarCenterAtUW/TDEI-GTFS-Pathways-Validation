@@ -12,13 +12,22 @@ class HealthController implements IController {
     public intializeRoutes() {
         this.router.get(`${this.path}/ping`, this.getping);
         this.router.post(`${this.path}/ping`, this.getping);
+        this.router.get(`${this.path}/meta`,this.getMetadata);
     }
 
     getping = async (request: Request, response: express.Response) => {
 
-        // return loaded posts
         response.send("I'm healthy !!");
     }
+
+    getMetadata = async (request: Request, response: express.Response) => {
+        const metadata = {
+            version : process.env.npm_package_version,
+            package: process.env.npm_package_name
+        };
+        response.send(metadata);
+    }
+     
 }
 
 export default HealthController;
