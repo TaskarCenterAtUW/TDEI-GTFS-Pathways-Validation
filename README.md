@@ -50,3 +50,8 @@ This micro service deals with two topics/queues.
 - validation queue from gtfs-pathways-validation
 
 
+```mermaid
+graph LR;
+  A(gtfs-pathways-upload)-->B(gtfs-pathway-validation-service);
+  B-->C(gtfs-pathways-validation)
+```
