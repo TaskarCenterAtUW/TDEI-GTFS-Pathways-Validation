@@ -43,5 +43,10 @@ QUEUECONNECTION=xxxx
 The application right now does not connect with the storage but validates via the file name.
 
 
+### Messaging
+
+This micro service deals with two topics/queues. 
+- upload queue from gtfs-pathways-upload
+- validation queue from gtfs-pathways-validation
 
 
