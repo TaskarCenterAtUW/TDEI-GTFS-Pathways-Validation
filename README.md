@@ -43,5 +43,26 @@ QUEUECONNECTION=xxxx
 The application right now does not connect with the storage but validates via the file name.
 
 
+### Messaging
+
+This micro service deals with two topics/queues. 
+- upload queue from gtfs-pathways-upload
+- validation queue from gtfs-pathways-validation
 
 
+```mermaid
+graph LR;
+  A(gtfs-pathways-upload)-->B[gtfs-pathway-validation-service];
+  B-->C(gtfs-pathways-validation)
+```
+#### Incoming
+The incoming messages will be from the upload queue `gtfs-pathways-upload`.
+The format is mentioned in [msg-gtfs-pathway-upload.json](./src/assets/mgs-gtfs-pathway-upload.json)
+
+#### Outgoing
+The outgoing messages will be to the `gtfs-pathways-validation` topic.
+The format of the message is at [gtfs-pathway-validation.json](./src/assets/msg-gtfs-pathway-validation.json)
+
+
+## CI/CD
+The application will be hosted with the docker image. Default port is 8080.
