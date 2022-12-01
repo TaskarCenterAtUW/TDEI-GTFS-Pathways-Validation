@@ -24,4 +24,6 @@ export class GTFSPathwayUpload extends AbstractDomainEntity {
     dataSource?:string;
     @Prop('pathways_schema_version')
     pathwaysSchemaVersion:string = "1.0.0";
+    @Prop('tdei_record_id')
+    tdeiRecordId:string = "";
 }

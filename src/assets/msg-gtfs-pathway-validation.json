@@ -17,6 +17,7 @@
         "is_valid": false,
         "validation_message": "Invalid file",
         "validation_time": 90,
-        "pathways_schema_version": "1.0.0"
+        "pathways_schema_version": "1.0.0",
+        "tdei_record_id":"f2c177b8a5574ed2ad05136bd3d89269"
     }
 }

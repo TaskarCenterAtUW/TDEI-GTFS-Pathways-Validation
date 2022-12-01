@@ -13,6 +13,7 @@
         "data_source": "local",
         "pathways_schema_version": "1.0.0",
         "file_upload_path": "https://tdeisamplestorage.blob.core.windows.net/gtfspathways/2022%2FNOVEMBER%2F101%2Ffile_1669110207839_1518e1dd1d4741a19a5dbed8f9b8d0a1.zip",
-        "user_id": "101-1-2-2111"
+        "user_id": "101-1-2-2111",
+        "tdei_record_id":"f2c177b8a5574ed2ad05136bd3d89269"
       }
 }
