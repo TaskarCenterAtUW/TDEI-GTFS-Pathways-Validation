@@ -57,7 +57,7 @@ graph LR;
 ```
 #### Incoming
 The incoming messages will be from the upload queue `gtfs-pathways-upload`.
-The format is mentioned in [msg-gtfs-pathway-upload.json](./src/assets/mgs-gtfs-pathway-upload.json)
+The format is mentioned in [msg-gtfs-pathway-upload.json](./src/assets/msg-gtfs-pathway-upload.json)
 
 #### Outgoing
 The outgoing messages will be to the `gtfs-pathways-validation` topic.
