@@ -3,11 +3,17 @@ import { ILoggable } from "nodets-ms-core/lib/core/logger/abstracts/ILoggable";
 import { QueueMessage } from "nodets-ms-core/lib/core/queue";
 import { ITopicSubscription } from "nodets-ms-core/lib/core/queue/abstracts/IMessage-topic";
 import { Topic } from "nodets-ms-core/lib/core/queue/topic";
+import { FileEntity } from "nodets-ms-core/lib/core/storage";
 import { unescape } from "querystring";
 import { GTFSPathwayUpload } from "../model/event/gtfs-pathway-upload";
 import { GTFSPathwayValidation } from "../model/event/gtfs-pathway-validation";
 import { IValidator } from "./interface/iValidator";
 
+
+interface ValidationResult {
+    isValid: boolean,
+    validationMessage: string
+}
 
 export class GTFSPathwaysValidator implements IValidator, ITopicSubscription {
 
@@ -42,38 +48,58 @@ export class GTFSPathwaysValidator implements IValidator, ITopicSubscription {
     }
 
 
-    validate(message:QueueMessage): void {
+    async validate(message:QueueMessage): Promise<void> {
         const gtfsUploadMessage = GTFSPathwayUpload.from(message.data);
         console.log(gtfsUploadMessage.fileUploadPath);
         //https://xxxx-namespace.blob.core.windows.net/gtfspathways/2022%2FNOVEMBER%2F101%2Ffile_1669110207839_1518e1dd1d4741a19a5dbed8f9b8d0a1.zip
-        const fileRelativePath = gtfsUploadMessage.fileUploadPath?.split('/').splice(-1)[0];
-        if(fileRelativePath){
-            const filePathClean = unescape(fileRelativePath);
-            const fileName = filePathClean.split('/').splice(-1)[0];
-            console.log(fileName);
-            if(fileName.includes('invalid')){
-                this.sendStatus(false,gtfsUploadMessage,'Invalid file');
-                return;
-            }
-            if(fileName.includes('valid')){
-                console.log('Valid file');
-                this.sendStatus(true,gtfsUploadMessage);
-                return;
-            }
-            console.log('Invalid file.. No regex found');
-            this.sendStatus(false,gtfsUploadMessage,'No regex found in file '+fileName);
-            return;
+        // Get the file entity from url
+        let fileEntity = await Core.getStorageClient()?.getFileFromUrl(gtfsUploadMessage.fileUploadPath!);
+        if(fileEntity){
+            // get the validation result
+            let validationResult = await this.validateGTFSPathway(fileEntity);
+            this.sendStatus(gtfsUploadMessage,validationResult);
+        }
+        else {
+            this.sendStatus(gtfsUploadMessage,{isValid:false,validationMessage:'File entity not found'});
         }
     }
 
-    private sendStatus(valid:boolean, uploadMessage: GTFSPathwayUpload, validationMessage:string = ''){
+    validateGTFSPathway(file: FileEntity): Promise<ValidationResult> {
+
+        return new Promise((resolve,reject)=>{
+
+            try {
+            // let content = file.getStream() // This gets the data stream of the file. This can be used for actual validation
+            const fileName = unescape(file.fileName);
+            console.log(fileName);
+            if(fileName.includes('invalid')){
+                // validation failed
+                resolve({
+                 isValid:   false,
+                 validationMessage:'file name contains invalid'
+                });
+            }
+            else {
+                // validation is successful
+                resolve({
+                    isValid:true,
+                    validationMessage:''
+                });
+            }
+        }
+        catch (e){
+            reject(e);
+        }
+        });
+    }
+
+    private sendStatus(uploadMessage: GTFSPathwayUpload, result: ValidationResult){
         var statusMessage = GTFSPathwayValidation.from(uploadMessage);
-        statusMessage.isValid = valid;
+        statusMessage.isValid = result.isValid;
         statusMessage.validationTime = 90; // This is hardcoded.
-        statusMessage.validationMessage = validationMessage;
+        statusMessage.validationMessage = result.validationMessage;
         this.publishingTopic.publish( QueueMessage.from(
             {
-                messageId:'98383',
                 message:"Validation complete",
                 messageType:'gtfspathwayvalidation',
                 data:statusMessage
