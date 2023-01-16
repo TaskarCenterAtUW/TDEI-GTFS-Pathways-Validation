@@ -3,6 +3,9 @@ import bodyParser from "body-parser";
 import { IController } from "./controller/interface/iController";
 import helmet from "helmet";
 import { GTFSPathwaysValidator } from "./controller/gtfs-pathways-validator";
+import { unhandledExceptionAndRejectionHandler } from "./middleware/unhandled-exception-rejection-handler";
+import { errorHandler } from "./middleware/error-handler-middleware";
+
 
 class App {
     public app: express.Application;
@@ -12,10 +15,16 @@ class App {
     constructor(controllers: IController[], port: number) {
         this.app = express();
         this.port = port;
-        
+        //First middleware to be registered: after express init
+        unhandledExceptionAndRejectionHandler();
+
         this.initializeMiddlewares();
         this.initializeControllers(controllers);
+        //Initializa validator
         this.validator = new GTFSPathwaysValidator();
+
+        //Last middleware to be registered: error handler. 
+        this.app.use(errorHandler);
     }
 
     private initializeMiddlewares() {
