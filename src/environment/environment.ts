@@ -9,10 +9,10 @@ export const environment = {
     appName: process.env.npm_package_name,
     eventBus: {
         connectionString: process.env.EventBusConnection,
-        uploadTopic: process.env.UploadTopic,
-        uploadSubscription: process.env.UploadSubscription,
-        validationTopic: process.env.ValidationTopic,
-        validationSubscription: process.env.ValidationSubscription
+        uploadTopic: process.env.UPLOAD_TOPIC,
+        uploadSubscription: process.env.UPLOAD_SUBSCRIPTION,
+        validationTopic: process.env.VALIDATION_TOPIC,
     },
-    appPort: parseInt(process.env.PORT as string) || 8080
+    appPort: parseInt(process.env.PORT as string) || 8080,
+    authPermissionUrl: process.env.AUTH_PERMISSION_URL
 }
