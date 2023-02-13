@@ -1,4 +1,6 @@
+import { IsOptional } from "class-validator";
 import { AbstractDomainEntity, Prop } from "nodets-ms-core/lib/models";
+import { PolygonDto } from "../polygon-model";
 
 //Describes a gtfs pathways file meta data.
 export class GTFSPathwayUpload extends AbstractDomainEntity {
@@ -9,21 +11,22 @@ export class GTFSPathwayUpload extends AbstractDomainEntity {
     @Prop('collected_by')
     collectedBy?: string;
     @Prop('collection_method')
-    collectionMethod?:string;
-    @Prop('file_upload_path')
-    fileUploadPath?:string;
+    collectionMethod?: string;
     @Prop('user_id')
-    userId?:string;
+    userId?: string;
     @Prop('collection_date')
-    collectionDate?:string;
+    collectionDate?: string;
     @Prop('valid_from')
-    validFrom?:string;
+    validFrom?: string;
     @Prop('valid_to')
-    validTo?:string;
+    validTo?: string;
     @Prop('data_source')
-    dataSource?:string;
+    dataSource?: string;
     @Prop('pathways_schema_version')
-    pathwaysSchemaVersion:string = "1.0.0";
+    pathwaysSchemaVersion: string = "1.0.0";
     @Prop('tdei_record_id')
-    tdeiRecordId:string = "";
+    tdeiRecordId: string = "";
+    @Prop()
+    @IsOptional()
+    polygon!: PolygonDto;
 }
