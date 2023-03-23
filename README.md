@@ -69,11 +69,11 @@ graph LR;
 ```
 #### Incoming
 The incoming messages will be from the upload queue `gtfs-pathways-upload`.
-The format is mentioned in [msg-gtfs-pathway-upload.json](./src/assets/msg-gtfs-pathway-upload.json)
+The format is mentioned in [msg-gtfs-pathway-upload.json](https://github.com/TaskarCenterAtUW/TDEI-event-messages/blob/dev/event/gtfs-pathway-upload.json)
 
 #### Outgoing
 The outgoing messages will be to the `gtfs-pathways-validation` topic.
-The format of the message is at [gtfs-pathway-validation.json](./src/assets/msg-gtfs-pathway-validation.json)
+The format of the message is at [gtfs-pathway-validation.json](https://github.com/TaskarCenterAtUW/TDEI-event-messages/blob/dev/event/gtfs-pathway-validation.json)
 
 
 ## CI/CD
