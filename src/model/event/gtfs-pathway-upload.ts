@@ -1,6 +1,6 @@
 import { IsOptional } from "class-validator";
+import { FeatureCollection } from "geojson";
 import { AbstractDomainEntity, Prop } from "nodets-ms-core/lib/models";
-import { PolygonDto } from "../polygon-model";
 
 //Describes a gtfs pathways file meta data.
 export class GTFSPathwayUpload extends AbstractDomainEntity {
@@ -28,5 +28,5 @@ export class GTFSPathwayUpload extends AbstractDomainEntity {
     tdeiRecordId: string = "";
     @Prop()
     @IsOptional()
-    polygon!: PolygonDto;
+    polygon!: FeatureCollection;
 }

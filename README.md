@@ -18,6 +18,18 @@ The project is built on top of NodeJS framework. All the regular nuances for a N
 | NodeJS | 16.17.0|
 | Typescript | 4.8.2 |
 
+### Environment variables
+|Name| Description |
+|--|--|
+| PROVIDER | Provider for cloud service or local |
+|QUEUECONNECTION | Queue connection string |
+|STORAGECONNECTION | Storage connection string|
+|PORT |Port on which application will run|
+|UPLOAD_SUBSCRIPTION | Upload topic subscription name|
+|UPLOAD_TOPIC | Upload topic name|
+|VALIDATION_TOPIC | Validation topic name|
+|EventBusConnection | Event bus connection string|
+|AUTH_PERMISSION_URL | Authentication/Authorization url|
 
 ### Build and Test
 Follow the steps to install the node packages required for both building and running the application
@@ -57,11 +69,11 @@ graph LR;
 ```
 #### Incoming
 The incoming messages will be from the upload queue `gtfs-pathways-upload`.
-The format is mentioned in [msg-gtfs-pathway-upload.json](./src/assets/msg-gtfs-pathway-upload.json)
+The format is mentioned in [msg-gtfs-pathway-upload.json](https://github.com/TaskarCenterAtUW/TDEI-event-messages/blob/dev/event/gtfs-pathway-upload.json)
 
 #### Outgoing
 The outgoing messages will be to the `gtfs-pathways-validation` topic.
-The format of the message is at [gtfs-pathway-validation.json](./src/assets/msg-gtfs-pathway-validation.json)
+The format of the message is at [gtfs-pathway-validation.json](https://github.com/TaskarCenterAtUW/TDEI-event-messages/blob/dev/event/gtfs-pathway-validation.json)
 
 
 ## CI/CD
